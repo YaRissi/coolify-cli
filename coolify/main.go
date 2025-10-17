@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/coollabsio/coolify-cli/cmd"
+	"github.com/yarissi/coolify-cli/cmd"
 )
 
 func main() {
