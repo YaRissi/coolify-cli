@@ -7,7 +7,14 @@ before:
 builds:
   - id: coolify
     binary: coolify
-    main: ./coolify
+    flags:
+      - -trimpath
+    ldflags:
+      - -s
+      - -w
+      - -X {{ .ModulePath }}/internal/version.version={{ .Version }}
+      - -X {{ .ModulePath }}/internal/version.versionPrerelease={{- if .IsSnapshot -}}dev+{{ .ShortCommit }}{{- end -}}
+    main: ./coolify/main.go
     goos:
       - darwin
       - linux
