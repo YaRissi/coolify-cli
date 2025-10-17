@@ -10,28 +10,16 @@ This guide explains the release process for the Coolify CLI.
 
 ## Release Process
 
-### 1. Update Version Number
+### 1. Ensure All Changes Are Merged
 
-Edit `cmd/root.go` and update the `CliVersion` variable:
-
-```go
-var CliVersion = "1.x.x"  // Change to your new version
-```
-
-**Version Format:** Use semantic versioning: `MAJOR.MINOR.PATCH` (e.g., `1.2.3`)
-- **MAJOR**: Breaking changes
-- **MINOR**: New features (backwards compatible)
-- **PATCH**: Bug fixes (backwards compatible)
-
-### 2. Commit and Push Version Change
+All code changes should be merged to the target branch (`v4.x`). The version is automatically injected during the release process via GoReleaser.
 
 ```bash
 git add cmd/root.go
 git commit -m "chore: bump version to 1.x.x"
 git push origin v4.x
 ```
-
-### 3. Create a GitHub Release
+### 2. Create a GitHub Release
 
 1. Go to https://github.com/coollabsio/coolify-cli/releases/new
 2. Click "Choose a tag" and create a new tag:
@@ -56,29 +44,33 @@ git push origin v4.x
      ```
 5. Click "Publish release"
 
-### 4. Automated Build Process
+### 3. Automated Build Process
 
 Once you publish the release:
 
 1. GitHub Actions automatically triggers the `release-cli.yml` workflow
-2. GoReleaser builds binaries for:
+2. GoReleaser automatically detects the version from the git tag
+3. Version is injected into binaries via ldflags:
+   - `internal/version.version` is set to the release tag (e.g., `v1.2.3`)
+   - For snapshot/dev builds, `internal/version.versionPrerelease` includes commit hash
+4. GoReleaser builds binaries for:
    - **Linux**: amd64, arm64
    - **macOS (Darwin)**: amd64, arm64
    - **Windows**: amd64, arm64
-3. Binaries are automatically uploaded to the release
-4. The release becomes available at:
+5. Binaries are automatically uploaded to the release
+6. The release becomes available at:
    - GitHub: `https://github.com/coollabsio/coolify-cli/releases/tag/v1.x.x`
-   - Install script: `curl -fsSL https://cdn.coollabs.io/coolify/install.sh | bash`
+   - Install script: `curl -fsSL https://raw.githubusercontent.com/coollabsio/coolify-cli/main/scripts/install.sh | bash`
    - `go install`: `go install github.com/coollabsio/coolify-cli/coolify@v1.x.x`
 
-### 5. Verify the Release
+### 4. Verify the Release
 
 After the workflow completes (usually 2-5 minutes):
 
 1. Check the release page has all platform binaries
 2. Test the install script:
    ```bash
-   curl -fsSL https://cdn.coollabs.io/coolify/install.sh | bash
+   curl -fsSL https://raw.githubusercontent.com/coollabsio/coolify-cli/main/scripts/install.sh | bash
    coolify version
    ```
 3. Test the auto-update functionality:
@@ -99,8 +91,9 @@ After the workflow completes (usually 2-5 minutes):
   - GoReleaser configuration issues
 
 ### Version Not Updating
-- Ensure you committed the version change in `cmd/root.go`
 - The tag must start with `v` (e.g., `v1.2.3`, not `1.2.3`)
+- GoReleaser automatically detects the version from the git tag
+- Ensure the git tag exists and is correct: `git tag -l | grep v1.x.x`
 - Check that the workflow has write permissions
 
 ### Install Script Not Finding New Version
@@ -114,9 +107,9 @@ Before creating a release:
 
 - [ ] All tests pass: `go test ./internal/...`
 - [ ] Code is formatted: `go fmt ./...`
-- [ ] Version updated in `cmd/root.go`
 - [ ] Changes merged to `v4.x` branch
 - [ ] Release notes prepared
+- [ ] Determine the new version number (semantic versioning)
 
 After creating a release:
 
@@ -129,15 +122,20 @@ After creating a release:
 
 The release process uses these configuration files:
 
-- `.goreleaser.yml` - GoReleaser configuration (build matrix, archives, etc.) - points to `/coolify` as entry point
-- `.github/workflows/release-cli.yml` - GitHub Actions workflow
+- `.goreleaser.yml` - GoReleaser configuration with version injection via ldflags:
+  - `-X internal/version.version={{ .Version }}` - Injects tag version (e.g., `v1.2.3`)
+  - `-X internal/version.versionPrerelease=...` - For snapshot builds with commit hash
+- `.github/workflows/release-cli.yml` - GitHub Actions workflow that triggers on releases
 - `scripts/install.sh` - User-facing install script
-- `cmd/root.go` - Contains `CliVersion` variable (line 22)
+- `internal/version/checker.go` - Version package with `GetVersion()` function
 - `coolify/main.go` - Binary entry point for `go install` support
 
 ## Notes
 
-- The CLI has auto-update checking built-in (checks every 10 minutes)
+- **Version Injection**: Version is automatically injected from the git tag at build time (via GoReleaser ldflags)
+- No manual version updates needed in code - just create a git tag!
+- The CLI has auto-update checking built-in (checks every 10 minutes via `GetVersion()`)
 - Users can manually update with `coolify update`
 - Install script supports version pinning: `bash install.sh v1.2.3`
 - Releases are immutable - if you need to fix something, create a new patch version
+- Development builds show version as "dev" unless compiled with ldflags

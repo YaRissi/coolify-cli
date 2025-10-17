@@ -48,9 +48,13 @@ Core API functions in `cmd/root.go`:
 All API calls use `Fqdn + "/api/v1/" + url` pattern with Bearer token authentication
 
 ### Version Management
-- CLI version tracking with auto-update check (10 minute interval)
-- API version checking and minimum version enforcement via `CheckMinimumVersion()`
-- Self-update capability using `go-selfupdate` library
+- **CLI Version**: Automatically injected at build time via GoReleaser ldflags from git tags
+  - `internal/version.version` is set via `-X internal/version.version={{ .Version }}`
+  - Use `version.GetVersion()` to retrieve the current version
+  - Development builds show "dev" unless compiled with ldflags
+- **Version Checking**: Auto-update check runs every 10 minutes (configurable in `CheckInterval`)
+- **API Version**: Minimum version enforcement via `CheckMinimumVersion()` when required
+- **Self-Update**: Capability using `go-selfupdate` library
 
 ### Output Formatting
 Three output modes supported via `--format` flag:
@@ -117,10 +121,17 @@ go fmt ./...
 
 ## Release Process
 
-- Uses GoReleaser for multi-platform builds (Linux, Darwin, Windows on amd64/arm64)
-- Release workflow: `.github/workflows/release-cli.yml` triggers on GitHub releases
-- GoReleaser config: `.goreleaser.yml`
-- Install script: `scripts/install.sh` downloads from GitHub releases
+- **Automation**: Uses GoReleaser for multi-platform builds (Linux, Darwin, Windows on amd64/arm64)
+- **Version Injection**: Version is automatically injected from git tags via ldflags:
+  - `-X {{ .ModulePath }}/internal/version.version={{ .Version }}`
+  - `-X {{ .ModulePath }}/internal/version.versionPrerelease=...` (for snapshot builds)
+- **Release Workflow**: `.github/workflows/release-cli.yml` triggers on GitHub releases
+- **GoReleaser Config**: `.goreleaser.yml` defines build matrix, ldflags, and artifact handling
+- **Install Methods**:
+  - GitHub releases: `https://github.com/coollabsio/coolify-cli/releases`
+  - Install script: `scripts/install.sh` downloads from GitHub releases
+  - Go install: `go install github.com/coollabsio/coolify-cli/coolify@v1.x.x`
+- **No Manual Updates**: No need to update version in code - git tag is the source of truth
 
 ## Key Patterns
 

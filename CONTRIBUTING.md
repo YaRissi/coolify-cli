@@ -594,14 +594,19 @@ feat: add server domains list command
 - [ ] All global flags are supported (format, show-sensitive, debug)
 - [ ] Used UUIDs (not IDs) for resource identifiers
 
-## Release Process (not for contributors :) ) 
+## Release Process (not for contributors :) )
 
-Releases are automated using GoReleaser:
+Releases are automated using GoReleaser. For detailed instructions, see [HOW-TO-RELEASE.md](HOW-TO-RELEASE.md).
 
+Quick overview:
 1. Tag a new version: `git tag v1.2.3`
 2. Push the tag: `git push origin v1.2.3`
-3. Create a GitHub release
-4. GoReleaser builds binaries for all platforms automatically
+3. Create a GitHub release on the release page
+4. GoReleaser automatically:
+   - Detects version from git tag
+   - Injects version into binaries via ldflags
+   - Builds binaries for all platforms (Linux, macOS, Windows)
+   - Uploads them to the GitHub release
 
 ## Getting Help
 
