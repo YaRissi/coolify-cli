@@ -3,7 +3,7 @@ package version
 import (
 	"fmt"
 
-	"github.com/coollabsio/coolify-cli/internal/version"
+	"github.com/yarissi/coolify-cli/internal/version"
 	"github.com/spf13/cobra"
 )
 

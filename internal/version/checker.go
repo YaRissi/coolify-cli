@@ -52,7 +52,7 @@ func CheckLatestVersionOfCli(debug bool) (string, error) {
 	viper.Set("lastupdatechecktime", time.Now().Format(time.RFC3339))
 	viper.WriteConfig()
 
-	url := "https://api.github.com/repos/coollabsio/coolify-cli/git/refs/tags"
+	url := "https://api.github.com/repos/yarissi/coolify-cli/git/refs/tags"
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return "", err

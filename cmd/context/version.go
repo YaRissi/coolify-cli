@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/coollabsio/coolify-cli/internal/cli"
+	"github.com/yarissi/coolify-cli/internal/cli"
 	"github.com/spf13/cobra"
 )
 

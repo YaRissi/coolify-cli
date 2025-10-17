@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/coollabsio/coolify-cli/internal/api"
+	"github.com/yarissi/coolify-cli/internal/api"
 	compareVersion "github.com/hashicorp/go-version"
 	"github.com/spf13/cobra"
 )

@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/coollabsio/coolify-cli/internal/cli"
-	"github.com/coollabsio/coolify-cli/internal/models"
-	"github.com/coollabsio/coolify-cli/internal/service"
+	"github.com/yarissi/coolify-cli/internal/cli"
+	"github.com/yarissi/coolify-cli/internal/models"
+	"github.com/yarissi/coolify-cli/internal/service"
 	"github.com/spf13/cobra"
 )
 

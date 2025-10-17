@@ -1,8 +1,8 @@
 package context
 
 import (
-	"github.com/coollabsio/coolify-cli/internal/config"
-	"github.com/coollabsio/coolify-cli/internal/output"
+	"github.com/yarissi/coolify-cli/internal/config"
+	"github.com/yarissi/coolify-cli/internal/output"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

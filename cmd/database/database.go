@@ -3,7 +3,7 @@ package database
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/coollabsio/coolify-cli/cmd/database/backup"
+	"github.com/yarissi/coolify-cli/cmd/database/backup"
 )
 
 // NewDatabaseCommand creates the database parent command with all subcommands

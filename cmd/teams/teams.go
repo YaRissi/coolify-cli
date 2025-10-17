@@ -1,7 +1,7 @@
 package teams
 
 import (
-	"github.com/coollabsio/coolify-cli/cmd/teams/members"
+	"github.com/yarissi/coolify-cli/cmd/teams/members"
 	"github.com/spf13/cobra"
 )
 

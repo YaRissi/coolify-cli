@@ -3,7 +3,7 @@ package application
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/coollabsio/coolify-cli/cmd/application/env"
+	"github.com/yarissi/coolify-cli/cmd/application/env"
 )
 
 // NewAppCommand creates the app parent command

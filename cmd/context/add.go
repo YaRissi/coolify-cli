@@ -3,8 +3,8 @@ package context
 import (
 	"fmt"
 
-	"github.com/coollabsio/coolify-cli/internal/cli"
-	"github.com/coollabsio/coolify-cli/internal/config"
+	"github.com/yarissi/coolify-cli/internal/cli"
+	"github.com/yarissi/coolify-cli/internal/config"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

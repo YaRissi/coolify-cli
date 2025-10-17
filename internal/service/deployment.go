@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/coollabsio/coolify-cli/internal/api"
-	"github.com/coollabsio/coolify-cli/internal/models"
+	"github.com/yarissi/coolify-cli/internal/api"
+	"github.com/yarissi/coolify-cli/internal/models"
 )
 
 // DeploymentService handles deployment-related operations

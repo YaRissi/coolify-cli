@@ -3,7 +3,7 @@ package config
 import (
 	"fmt"
 
-	"github.com/coollabsio/coolify-cli/internal/config"
+	"github.com/yarissi/coolify-cli/internal/config"
 	"github.com/spf13/cobra"
 )
 

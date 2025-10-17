@@ -3,8 +3,8 @@ package cli
 import (
 	"fmt"
 
-	"github.com/coollabsio/coolify-cli/internal/api"
-	"github.com/coollabsio/coolify-cli/internal/config"
+	"github.com/yarissi/coolify-cli/internal/api"
+	"github.com/yarissi/coolify-cli/internal/config"
 	"github.com/spf13/cobra"
 )
 

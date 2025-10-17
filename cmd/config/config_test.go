@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/coollabsio/coolify-cli/internal/config"
+	"github.com/yarissi/coolify-cli/internal/config"
 )
 
 func TestNewConfigCommand(t *testing.T) {
