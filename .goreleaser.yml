@@ -6,8 +6,6 @@ builds:
     flags:
       - -trimpath
     ldflags:
-      - -s
-      - -w
       - -X github.com/coollabsio/coolify-cli/internal/version.version={{ .Version }}
     goos:
       - darwin
