@@ -16,7 +16,7 @@ import (
 
 // Version variables injected by GoReleaser at build time via ldflags
 var (
-	version = "v2.1.5"
+	version = "v2.1.6"
 )
 
 func GetVersion() string {
