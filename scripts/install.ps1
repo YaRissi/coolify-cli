@@ -31,7 +31,7 @@ if (-not $InstallDir -and $env:COOLIFY_INSTALL_DIR) {
 }
 
 # Configuration
-$Script:REPO = "coollabsio/coolify-cli"
+$Script:REPO = "yarissi/coolify-cli"
 $Script:BINARY_NAME = "coolify.exe"
 $Script:GLOBAL_INSTALL_DIR = "$env:ProgramFiles\Coolify"
 $Script:USER_INSTALL_DIR = "$env:LOCALAPPDATA\Coolify"
